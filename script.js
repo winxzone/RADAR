@@ -14,24 +14,24 @@ function updatePlot(scanAngle, echoResponses) {
 	)
 	const powers = echoResponses.map(response => response.power)
 
-	const r = distances
-	const theta = Array(distances.length).fill(scanAngle) // Масив кутів у градусах
-	const markerColors = powers.map(
-		power => `rgba(${255 - power * 255}, ${power * 255}, 0, 1)`
-	) // Відображення потужності через градієнт кольорів
+	if (distances.length > 0) {
+		// Берем только последние значения для отображения
+		const r = [distances[distances.length - 1]]
+		const theta = [scanAngle] // Отображаем текущий угол
+		const markerColors = [powers[powers.length - 1]] // Цвет только последней точки
 
-	// Оновлення полярного графіку
-	Plotly.extendTraces(
-		'radar-plot',
-		{
+		// Обновление полярного графика
+		Plotly.restyle('radar-plot', {
 			r: [r],
 			theta: [theta],
-			'marker.color': [markerColors],
-		},
-		[0]
-	)
+			'marker.color': [
+				markerColors.map(
+					power => `rgba(${255 - power * 255}, ${power * 255}, 0, 1)`
+				),
+			],
+		})
+	}
 }
-
 // Налаштування події відкриття WebSocket з'єднання
 socket.onopen = () => {
 	console.log('Connected to WebSocket server')
