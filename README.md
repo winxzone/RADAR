@@ -123,5 +123,7 @@ function updateRadarConfig() {
 ```
 
 ## Результат роботи
-![](./screenshots/Снимок экрана 2024-10-09 123031.png)
-![](./screenshots/Снимок экрана 2024-10-09 123119.png)
+![](screenshots/1.png)
+![](screenshots/2.png)
+
+
